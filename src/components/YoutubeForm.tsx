@@ -7,19 +7,31 @@ type FormValues = {
   username: string;
   email: string;
   channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
+  phoneNumbers: string[];
 };
 
 const YoutubeForm = () => {
   const form = useForm<FormValues>({
     defaultValues: async () => {
-      const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users/1"
+      );
       const data = await response.json();
       return {
-        username: 'Batman',
+        username: "Batman",
         email: data.email,
-        channel: ''
-      }
-    }
+        channel: "",
+        social: {
+          twitter: "",
+          facebook: "",
+        },
+        phoneNumbers: ["", ""],
+      };
+    },
   });
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
@@ -69,9 +81,12 @@ const YoutubeForm = () => {
                   );
                 },
                 notBlackListed: (fieldValue) => {
-                  return !fieldValue.endsWith("baddomain.com") || "This domain is not supported!"
-                }
-              }
+                  return (
+                    !fieldValue.endsWith("baddomain.com") ||
+                    "This domain is not supported!"
+                  );
+                },
+              },
             })}
           />
           <br />
@@ -92,6 +107,36 @@ const YoutubeForm = () => {
           />
           <br />
           <p className="error">{errors.channel?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input type="text" id="twitter" {...register("social.twitter")} />
+          <br />
+        </div>
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook</label>
+          <input type="text" id="facebook" {...register("social.facebook")} />
+          <br />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primary-phone">Primary Phone Number</label>
+          <input
+            type="text"
+            id="primary-phone"
+            {...register("phoneNumbers.0")}
+          />
+          <br />
+        </div>
+        <div className="form-control">
+          <label htmlFor="secondary-phone">Secondary Phone Number</label>
+          <input
+            type="text"
+            id="secondary-phone"
+            {...register("phoneNumbers.1")}
+          />
+          <br />
         </div>
 
         <button> Submit</button>
