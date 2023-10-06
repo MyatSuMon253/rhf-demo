@@ -56,7 +56,7 @@ const YoutubeForm = () => {
     setValue,
   } = form;
   const { errors, touchedFields, dirtyFields, isDirty } = formState;
-  console.log(isDirty, dirtyFields, touchedFields)
+  console.log(isDirty, dirtyFields, touchedFields);
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -156,7 +156,14 @@ const YoutubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input type="text" id="twitter" {...register("social.twitter")} />
+          <input
+            type="text"
+            id="twitter"
+            {...register("social.twitter", {
+              disabled: watch("channel") === "",
+              required: "Enter twitter account",
+            })}
+          />
           <br />
         </div>
         <div className="form-control">
