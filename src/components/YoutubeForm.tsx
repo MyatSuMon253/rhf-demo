@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 
 let renderCount = 0;
 
@@ -56,7 +56,7 @@ const YoutubeForm = () => {
     setValue,
   } = form;
   const { errors, touchedFields, dirtyFields, isDirty } = formState;
-  console.log(isDirty, dirtyFields, touchedFields);
+  // console.log(isDirty, dirtyFields, touchedFields);
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -66,6 +66,10 @@ const YoutubeForm = () => {
   const onSubmit = (data: FormValues) => {
     console.log("Form submitted", data);
   };
+
+  const onError = (errors: FieldErrors<FormValues>) => {
+    console.log("Form errors", errors)
+  }
 
   const handleGetValues = () => {
     console.log("get values", getValues(["username", "channel"]));
@@ -89,7 +93,7 @@ const YoutubeForm = () => {
   return (
     <div>
       <h1>YoutubeForm renderCount {renderCount / 2}</h1>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
           <input
