@@ -55,8 +55,19 @@ const YoutubeForm = () => {
     getValues,
     setValue,
   } = form;
-  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
+  const {
+    errors,
+    touchedFields,
+    dirtyFields,
+    isDirty,
+    isValid,
+    isSubmitting,
+    isSubmitted,
+    isSubmitSuccessful,
+    submitCount
+  } = formState;
   // console.log(isDirty, dirtyFields, touchedFields);
+  console.log(isSubmitting, isSubmitted, isSubmitSuccessful, submitCount);
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -160,11 +171,7 @@ const YoutubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input
-            type="text"
-            id="twitter"
-            {...register("social.twitter")}
-          />
+          <input type="text" id="twitter" {...register("social.twitter")} />
           <br />
         </div>
         <div className="form-control">
@@ -249,7 +256,7 @@ const YoutubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid}> Submit</button>
+        <button disabled={!isDirty || !isValid || !isSubmitting}> Submit</button>
         <button type="button" onClick={handleGetValues}>
           Get Values
         </button>
