@@ -55,7 +55,7 @@ const YoutubeForm = () => {
     getValues,
     setValue,
   } = form;
-  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
   // console.log(isDirty, dirtyFields, touchedFields);
 
   const { fields, append, remove } = useFieldArray({
@@ -68,8 +68,8 @@ const YoutubeForm = () => {
   };
 
   const onError = (errors: FieldErrors<FormValues>) => {
-    console.log("Form errors", errors)
-  }
+    console.log("Form errors", errors);
+  };
 
   const handleGetValues = () => {
     console.log("get values", getValues(["username", "channel"]));
@@ -163,10 +163,7 @@ const YoutubeForm = () => {
           <input
             type="text"
             id="twitter"
-            {...register("social.twitter", {
-              disabled: watch("channel") === "",
-              required: "Enter twitter account",
-            })}
+            {...register("social.twitter")}
           />
           <br />
         </div>
@@ -252,7 +249,7 @@ const YoutubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button> Submit</button>
+        <button disabled={!isDirty || !isValid}> Submit</button>
         <button type="button" onClick={handleGetValues}>
           Get Values
         </button>
