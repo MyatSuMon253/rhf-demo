@@ -54,6 +54,7 @@ const YoutubeForm = () => {
     watch,
     getValues,
     setValue,
+    reset
   } = form;
   const {
     errors,
@@ -93,6 +94,11 @@ const YoutubeForm = () => {
       shouldValidate: true,
     });
   };
+
+  useEffect(()=> {
+    if (isSubmitSuccessful) reset()
+  }, [isSubmitSuccessful]);
+
   // useEffect(() => {
   //   const subscription = watch((value) => {
   //     console.log(value);
@@ -256,7 +262,10 @@ const YoutubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid || !isSubmitting}> Submit</button>
+        <button disabled={!isDirty || !isValid || isSubmitting}> Submit</button>
+        <button type="button" onClick={()=> reset()}>
+          Reset
+        </button>
         <button type="button" onClick={handleGetValues}>
           Get Values
         </button>
