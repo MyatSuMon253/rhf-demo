@@ -45,6 +45,7 @@ const YoutubeForm = () => {
         dob: new Date(),
       };
     },
+    mode: 'onBlur'
   });
   const {
     register,
