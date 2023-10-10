@@ -45,7 +45,7 @@ const YoutubeForm = () => {
         dob: new Date(),
       };
     },
-    mode: 'onBlur'
+    mode: "onBlur",
   });
   const {
     register,
@@ -56,6 +56,7 @@ const YoutubeForm = () => {
     getValues,
     setValue,
     reset,
+    trigger,
   } = form;
   const {
     errors,
@@ -279,6 +280,9 @@ const YoutubeForm = () => {
         </button>
         <button type="button" onClick={handleSetValue}>
           Set Value
+        </button>
+        <button type="button" onClick={() => trigger("channel")}>
+          Validate
         </button>
       </form>
       <DevTool control={control} />
