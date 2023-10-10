@@ -1,12 +1,11 @@
-
-import YoutubeForm from './components/YoutubeForm'
+import { ZodYouTubeForm } from "./components/ZodYoutubeForm";
 
 const App = () => {
   return (
     <div>
-      <YoutubeForm />
+      <ZodYouTubeForm />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
